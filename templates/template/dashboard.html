@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LikeMe ✨ Dashboard</title>
+    
+    <!-- Link to Google Fonts to give us that retro Y2K chunky aesthetic -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    
+    <style>
+        /* CSS LAYOUT STYLINGS */
+        body { 
+            font-family: 'Quicksand', sans-serif; 
+            background: #FAF5FF; /* Creamy lavender white backdrop */
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+        }
+        
+        .header { 
+            font-family: 'Fredoka One', cursive; 
+            color: #F472B6; /* Vibrant pastel pink */
+            font-size: 2rem; 
+            margin-bottom: 20px; 
+            display:flex; 
+            align-items:center; 
+            gap:10px; 
+        }
+        
+        /* The Profile Card Box */
+        .card-container { 
+            width: 330px; 
+            height: 460px; 
+            background: white; 
+            border-radius: 25px; 
+            border: 4px solid #E9D5FF; /* Thick retro lavender border */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03); 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        
+        /* Profile Image sizing inside the card */
+        .card-img { 
+            width: 100%; 
+            height: 60%; 
+            object-fit: cover; 
+            background: #FFF3F8; 
+        }
+        
+        .card-info { 
+            padding: 20px; 
+            flex-grow: 1; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+        }
+        
+        .name { font-size: 1.4rem; color: #4A3E56; margin: 0; }
+        .bio { font-size: 0.95rem; color: #7C3AED; opacity: 0.8; margin: 5px 0; }
+        
+        /* The Action Buttons Wrap */
+        .actions { display: flex; justify-content: space-around; padding: 10px 0; }
+        
+        /* Chunky Circular Bubble Buttons */
+        .btn { 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 50%; 
+            border: none; 
+            font-size: 1.6rem; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 5px 10px rgba(0,0,0,0.05); 
+            transition: transform 0.2s; 
+        }
+        /* Make button pop slightly when hovered over */
+        .btn:hover { transform: scale(1.1); }
+        .btn-pass { background: #FEE2E2; color: #EF4444; }
+        .btn-like { background: #FCE7F3; color: #EC4899; }
+        
+        .logout { margin-top: 20px; color: #A78BFA; text-decoration: none; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <!-- Top greeting tracking who is logged in -->
+    <div class="header">LikeMe ✨ <span style="font-size:0.9rem; background:#E9D5FF; padding:5px 10px; border-radius:20px; color:#7C3AED;">Hi, {{ current_user }}!</span></div>
+
+    <!-- FLASK JINJA CONDITION: If there are users in the profile array pool, load them up -->
+    {% if profiles %}
+    <div class="card-container" id="profile-card">
+        <!-- Render the first user in the list [0] -->
+        <img class="card-img" src="{{ profiles[0][3] }}" alt="Avatar">
+        <div class="card-info">
+            <div>
+                <!-- profiles[0][0] is Name, profiles[0][1] is Age -->
+                <h3 class="name">{{ profiles[0][0] }}, {{ profiles[0][1] }}</h3>
+                <!-- profiles[0][2] is Bio -->
+                <p class="bio">{{ profiles[0][2] }}</p>
+            </div>
+            <div class="actions">
+                <!-- Cross button skips to the next card -->
+                <button class="btn btn-pass" onclick="nextCard()">❌</button>
+                <!-- Heart button triggers the JavaScript function sending their unique username over -->
+                <button class="btn btn-like" onclick="likeCard('{{ profiles[0][4] }}')">💖</button>
+            </div>
+        </div>
+    </div>
+    <!-- If no more users of opposite gender are available, show an empty state box -->
+    {% else %}
+    <div class="card-container" style="justify-content:center; align-items:center; padding:20px; text-align:center;">
+        <h3>No more fairies around right now! 🌸</h3>
+        <p style="font-size:0.9rem; color:#A78BFA;">Tell your friends to sign up to pop up on your radar!</p>
+    </div>
+    {% endif %}
+
+    <a href="/logout" class="logout">Leave the Realm (Logout)</a>
+
+    <!-- FRONTEND INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // Simple trick: reload the page to make Python re-query the pool and serve the next user card
+        function nextCard() {
+            window.location.reload(); 
+        }
+
+        // Handles sending a like to Python without causing the browser screen to flicker/refresh completely
+        function likeCard(username) {
+            let formData = new FormData();
+            formData.append('liked_username', username); // Package up the liked user's name
+            
+            // Send a hidden background request to our Python /like route
+            fetch('/like', { method: 'POST', body: formData })
+            .then(res => res.json())
+            .then(data => {
+                // If Python checks its tables and says 'status: match', fire a celebration popup banner!
+                if(data.status === 'match') {
+                    alert(data.message);
+                }
+                // Move on to display the next profile card
+                nextCard();
+            });
+        }
+    </script>
+</body>
+</html>
