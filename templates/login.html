@@ -5,88 +5,184 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LikeMe ✨ Join the Magic</title>
     
-    <!-- PWA Setup Link -->
+    <!-- PWA Configurations -->
     <link rel="manifest" href="/static/manifest.json">
     <meta name="theme-color" content="#E9D5FF">
     
-    <!-- Google Fonts for chunky retro Y2K text styling -->
-    <link href="https://googleapis.com" rel="stylesheet">
+    <!-- Chunky Y2K Fonts -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Fredoka:wght@600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            --pastel-pink: #FFD6E8;
+            --pastel-purple: #E8D7FF;
+            --pastel-blue: #D6EFFF;
+            --fairy-dark: #4A3E56;
+        }
+
         body { 
             font-family: 'Quicksand', sans-serif; 
-            /* Dreamy holographic Y2K pastel gradient backdrop */
-            background: linear-gradient(135deg, #FFD6E8, #E8D7FF, #D6EFFF); 
+            /* Moving Iridescent Holographic Background */
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-purple), var(--pastel-blue), #FFE4E6); 
+            background-size: 400% 400%;
+            animation: fluidGradient 12s ease infinite;
             height: 100vh; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            margin:0; 
+            margin: 0; 
+            overflow: hidden;
+        }
+
+        @keyframes fluidGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         
-        /* The frosted-glass layout container */
         .box { 
-            background: rgba(255,255,255,0.8); 
-            backdrop-filter: blur(10px); 
-            padding: 40px; 
-            border-radius: 30px; 
-            border: 3px solid #FFF; 
-            width: 300px; 
+            background: rgba(255, 255, 255, 0.75); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            padding: 40px 30px; 
+            border-radius: 35px; 
+            border: 3px solid rgba(255, 255, 255, 0.6); 
+            width: 310px; 
             text-align: center; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            box-shadow: 0 15px 35px rgba(167, 139, 250, 0.15); 
+            animation: cardFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
         }
         
-        /* Chunky bubble text header styling */
         h1 { 
-            font-family: 'Fredoka One', cursive; 
+            font-family: 'Fredoka', cursive; 
             color: #F472B6; 
-            font-size: 2.5rem; 
-            margin: 0 0 20px 0; 
-            text-shadow: 2px 2px #FFF; 
+            font-size: 2.8rem; 
+            margin: 0 0 5px 0; 
+            text-shadow: 3px 3px 0px #FFF;
+            letter-spacing: -1px;
+        }
+
+        /* Sparkly Aesthetic Shayari Area */
+        .quote-container {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #7C3AED;
+            background: rgba(233, 213, 255, 0.5);
+            padding: 12px 15px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 4px solid #C084FC;
+            font-style: italic;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.4;
         }
         
-        /* Rounded pastel text boxes */
         input { 
             width: 100%; 
-            padding: 12px; 
+            padding: 14px 18px; 
             margin: 10px 0; 
             border: 2px solid #E9D5FF; 
-            border-radius: 15px; 
+            border-radius: 18px; 
             box-sizing: border-box; 
-            font-size: 1rem; 
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            color: var(--fairy-dark);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #F472B6;
+            background: #FFF;
+            box-shadow: 0 0 12px rgba(244, 114, 182, 0.25);
         }
         
-        /* Sparkly entry button */
         button { 
             width: 100%; 
-            padding: 12px; 
-            background: linear-gradient(to right, #F472B6, #C084FC); 
+            padding: 14px; 
+            background: linear-gradient(135deg, #F472B6, #C084FC); 
             color: white; 
             border: none; 
-            border-radius: 15px; 
-            font-family: 'Fredoka One', cursive; 
-            font-size: 1.1rem; 
+            border-radius: 18px; 
+            font-family: 'Fredoka', cursive; 
+            font-size: 1.15rem; 
             cursor: pointer; 
-            margin-top: 10px; 
+            margin-top: 12px; 
+            box-shadow: 0 5px 15px rgba(244, 114, 182, 0.3);
+            transition: all 0.2s ease;
         }
         
-        a { 
-            color: #C084FC; 
-            text-decoration: none; 
-            font-weight: bold; 
+        button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(244, 114, 182, 0.45);
         }
+
+        button:active { transform: translateY(1px); }
+        
+        .footer-text { margin-top: 25px; font-size: 0.9rem; font-weight: 700; color: #6B7280; }
+        a { color: #C084FC; text-decoration: none; border-bottom: 2px dashed rgba(192, 132, 252, 0.5); padding-bottom: 1px; }
+        a:hover { color: #F472B6; border-bottom-color: #F472B6; }
     </style>
 </head>
 <body>
     <div class="box">
         <h1>LikeMe ✨</h1>
-        <!-- Form triggers the Python backend /login action code -->
+        
+        <!-- DYNAMIC SPICY SHAYARI SLOT -->
+        <div class="quote-container" id="quote-box">Loading magic...</div>
+        
         <form action="/login" method="POST">
             <input type="text" name="username" placeholder="Fairy Username" required autocomplete="off">
             <input type="password" name="password" placeholder="Secret Password" required>
             <button type="submit">ENTER THE REALM 🌸</button>
         </form>
-        <p style="margin-top:20px; font-size:0.9rem;">New fairy? <a href="/register">Create Profile</a></p>
+        <p class="footer-text">New around here? <a href="/register">Create Profile</a></p>
     </div>
+
+    <script>
+        // Spice level: Max 🌶️ | Expanded mix of funny Hindi, spicy Hinglish, and clean English lines
+        const fairyShayaris = [
+            "“Library me padhte padhte dil kho gaya... Assignments chhodo, mujhe tumse pyaar ho gaya!” 📝💖",
+            "“Canteen ki chai aur tumhaari baatein... Kaatni hain mujhe ab saari raatein!” 🍹✨",
+            "“Attendance ki fikar ab hum nahi karte... Jab se aap hamare dil me hain rehte.” 🎒🌸",
+            "“Exam me fail hone ka darr nahi ab... Jab se LikeMe pe tum mil gayi ho tab.” 🔮⚡",
+            "“Proxy lagane waale toh bohot milenge... Par dil lagane waala sirf LikeMe pe milega!” 🧸🎀",
+            "“Mid-sem ka syllabus aur tumhaari smile... Dono hi samajh ke baahar hain!” 🌀🌙",
+            "“Nazar mili tumse toh dil chal pada... Placements chhodo, match hamara bada!” 🪄✨",
+            "“Viva me HOD ne pucha 'What is love?'... Maine muskura kar aapka username bata diya.” 🤫🔥",
+            "“Chura ke dil mera coding meri bhool gaya... Error solve karte karte tera chehra yaad aa gaya.” 💻💘",
+            "“Chai garam, samosa khasta... Tumhaari smile ke aage sab kuch sasta!” ☕🥐",
+            "“Group project me kaam toh kuch nahi kiya... Par tumhein dekh kar dil zaroor laga liya.” 📊🌸",
+            "“Class me dhyan kam aur LikeMe pe zyaada hai... Tumhe apni batchmate banane ka pakka irada hai.” 😉💎",
+            "“Assignment ka pressure aur internal ka darr... Par tumhaari ek chat sab kar deti hai thik-thak.” 📞✨",
+            "“8 AM ki class bhi hum attend karenge... Agar tum samne waali seat par baithne ka vaada karo.” ⏰🏫",
+            "“Syllabus khatam nahi hua aur semester khatam hone ko hai... Par dil ka har panna tumhaare naam ho chuka hai.” 📖💗",
+            "“Are you an internal exam? Because you make my heart beat like crazy.” 📈🌶️",
+            "“Professors look for mistakes in my copy, but I only look for you on campus.” 🔍✨",
+            "“Tumhaare smile ke samne college ki saari toppers fail hain, bro!” 🔥🧸",
+            "“Hostel ka khana is bad, but looking at your match request makes everything fine.” 🍲❤️",
+            "“Is your name WiFi? Because I am feeling a strong connection here.” 📶⚡",
+            "“Late night coding aur tumhaari yaadein... Dono hi chain se sone nahi deti.” 🌌💻",
+            "“Subah ki class miss ho jaye chalega, par tumhaari ek smile miss nahi honi chahiye.” 🏃‍♂️🌸",
+            "“Everyone is busy talking about packages, but my only package goal is YOU.” 💼💎",
+            "“Are you a complex equation? Because solving your vibe is my favorite challenge.” 🧩✨",
+            "“Crush toh bohot hain college me, par matching waali feeling toh sirf tumse hai.” 🔮💖"
+        ];
+
+        // Engine picks completely random index on state triggers
+        const max = fairyShayaris.length;
+        document.getElementById('quote-box').innerText = fairyShayaris[Math.floor(Math.random() * max)];
+    </script>
 </body>
 </html>
