@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LikeMe ✨ Join the Magic</title>
     
-    <!-- PWA Settings: Mobile Home Screen par full screen install karne ke liye -->
+    <!-- PWA Settings -->
     <link rel="manifest" href="/static/manifest.json">
     <meta name="theme-color" content="#E9D5FF">
     
-    <!-- Google Fonts Pipeline: Chunky bubble text styles load karne ke liye -->
+    <!-- Google Fonts Pipeline -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Fredoka:wght@600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
             --fairy-dark: #4A3E56;
         }
 
-        /* MEMORABLE FLUID BACKGROUND SKY */
+        /* DYNAMIC FLUID BACKGROUND SKY */
         body { 
             font-family: 'Quicksand', sans-serif; 
             background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-purple), var(--pastel-blue), #FFE4E6); 
@@ -35,41 +35,79 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* THE GIANT CINEMATIC FULL MOON */
+        /* 🌕 THE BRIGHT GOLDENISH-YELLOW MOON WITH HEAVY NEON GLOW */
         .cinema-moon {
-            position: absolute; top: 8%; right: 8%; width: 140px; height: 140px;
-            background: #FFFDE7; border-radius: 50%;
-            box-shadow: 0 0 40px rgba(254, 240, 138, 0.6), inset -10px -10px 20px rgba(0,0,0,0.05);
-            z-index: 1; animation: moonPulse 4s ease-in-out infinite alternate;
+            position: absolute; 
+            top: 8%; 
+            right: 8%; 
+            width: 130px; 
+            height: 130px;
+            background: radial-gradient(circle, #FFFDF0 20%, #FDE047 80%, #EAB308 100%); /* Golden yellow layers */
+            border-radius: 50%;
+            /* Intense golden and yellow aura glow */
+            filter: drop-shadow(0 0 35px rgba(234, 179, 8, 0.85)) drop-shadow(0 0 65px rgba(253, 224, 71, 0.5));
+            z-index: 1; 
+            animation: moonPulse 4s ease-in-out infinite alternate;
         }
         @keyframes moonPulse {
-            0% { transform: scale(1); box-shadow: 0 0 30px rgba(254, 240, 138, 0.5); }
-            100% { transform: scale(1.03); box-shadow: 0 0 50px rgba(244, 114, 182, 0.4); }
+            0% { transform: scale(1); filter: drop-shadow(0 0 35px rgba(234, 179, 8, 0.85)); }
+            100% { transform: scale(1.04); filter: drop-shadow(0 0 55px rgba(253, 224, 71, 0.95)); }
         }
-        /* E.T. BICYCLE FLIGHT TRAJECTORY SYSTEM */
-        .et-flight-system {
-            position: absolute; z-index: 2; pointer-events: none;
-            animation: etFlyAcrossMoon 15s linear infinite; /* 15 seconds full loop flight path */
+        /* ☄️ SPICY FLAME HEART METEOR RAIN FROM ABOVE */
+        .heart-meteor {
+            position: absolute;
+            font-size: 2.2rem;
+            top: -60px;
+            pointer-events: none;
+            z-index: 2;
+            animation: meteorFall 6s linear infinite;
+            filter: drop-shadow(0 0 12px #EF4444);
         }
-        .et-bike {
-            font-size: 3.2rem; position: relative; display: inline-block;
-            filter: drop-shadow(2px 4px 6px rgba(74, 62, 86, 0.25));
-            animation: flightWobble 0.6s linear infinite alternate; /* Pedaling animation */
-        }
-        .et-shadow {
-            width: 45px; height: 6px; background: rgba(74, 62, 86, 0.12); border-radius: 50%;
-            margin: -2px auto 0 auto; filter: blur(2px); animation: shadowSizeChange 0.6s linear infinite alternate;
+        /* Flame trail effect behind the heart meteor */
+        .heart-meteor::after {
+            content: '🔥';
+            position: absolute;
+            font-size: 1.3rem;
+            top: -22px;
+            left: 5px;
+            transform: rotate(180deg); /* Flips flame upwards */
+            opacity: 0.8;
         }
 
-        @keyframes etFlyAcrossMoon {
-            0% { top: 45%; left: -120px; transform: scale(0.65) rotate(8deg); opacity: 0; }
-            8% { opacity: 1; }
-            30% { top: 18%; left: calc(100vw - 220px); transform: scale(0.95) rotate(-3deg); } /* OVERLAPS MOON */
-            85% { opacity: 1; }
-            100% { top: 5%; left: calc(100vw + 120px); transform: scale(1.1) rotate(-8deg); opacity: 0; }
+        @keyframes meteorFall {
+            0% { transform: translateY(0) translateX(0) rotate(15deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(calc(100vh + 80px)) translateX(-200px) rotate(25deg); opacity: 0; }
         }
-        @keyframes flightWobble { 0% { transform: translateY(0) rotate(5deg); } 100% { transform: translateY(-3px) rotate(-2deg); } }
-        @keyframes shadowSizeChange { 0% { transform: scale(1); opacity: 0.15; } 100% { transform: scale(0.75); opacity: 0.06; } }
+
+        /* 🎈 POPPING FLOATING HEARTS FROM BOTTOM RIGHT */
+        .popping-heart {
+            position: absolute;
+            bottom: -50px;
+            right: 5%;
+            font-size: 1.8rem;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0;
+            animation: floatUpward 7s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px #F472B6);
+        }
+
+        @keyframes floatUpward {
+            0% { transform: translateY(0) translateX(0) scale(0.5); opacity: 0; }
+            15% { opacity: 0.8; }
+            50% { transform: translateY(-40vh) translateX(-60px) scale(1.1); }
+            85% { opacity: 0.6; }
+            100% { transform: translateY(-90vh) translateX(-120px) scale(0.8); opacity: 0; }
+        }
+
+        /* Dynamic multi-heart delays assignment */
+        .h1 { left: 15%; animation-delay: 0s; animation-duration: 5.5s; }
+        .h2 { left: 45%; animation-delay: 2s; animation-duration: 7s; }
+        .h3 { left: 70%; animation-delay: 4.5s; animation-duration: 6s; }
+        .p1 { right: 4%; animation-delay: 1s; }
+        .p2 { right: 12%; animation-delay: 3.5s; animation-duration: 8s; }
         
         /* COZY GLASSMORPHIC LOGIN BOX INTERFACE */
         .box { 
@@ -90,16 +128,19 @@
 </head>
 <body>
 
-    <!-- LAYER 1: CHAND BACKDROP -->
+    <!-- LAYER 1: BRIGHT REYAL GOLDEN MOON BACKDROP -->
     <div class="cinema-moon"></div>
 
-    <!-- LAYER 2: FLYING E.T. BIKE (Bicycle + Basket + Pet Alien combo) -->
-    <div class="et-flight-system">
-        <div class="et-bike">🚴‍♂️🏽🛸</div>
-        <div class="et-shadow"></div>
-    </div>
+    <!-- LAYER 2: ☄️ SPICY FLAME HEART METEORS FALLING FROM ABOVE -->
+    <div class="heart-meteor h1">❤️</div>
+    <div class="heart-meteor h2">💖</div>
+    <div class="heart-meteor h3">💝</div>
 
-    <!-- LAYER 3: FOREGROUND LOGIN INTERFACE BOX -->
+    <!-- LAYER 3: 🎈 POPPING FLOATING HEARTS FROM BOTTOM RIGHT -->
+    <div class="popping-heart p1">💗</div>
+    <div class="popping-heart p2">💘</div>
+
+    <!-- LAYER 4: FOREGROUND LOGIN INTERFACE BOX -->
     <div class="box">
         <h1>LikeMe ✨</h1>
         
@@ -119,7 +160,7 @@
             "“Canteen ki chai aur tumhaari baatein... Kaatni hain mujhe ab saari raatein!” 🍹✨",
             "“Attendance ki fikar ab hum nahi karte... Jab se aap hamare dil me hain rehte.” 🎒🌸",
             "“Exam me fail hone ka darr nahi ab... Jab se LikeMe pe tum mil gayi ho tab.” 🔮⚡",
-            "“Proxy lagane waale toh bohot milenge... Par dil lagane waala sirf LikeMe pe milenge!” 🧸🎀",
+            "“Proxy lagane waale toh bohot milenge... Par dil lagane waala sirf LikeMe pe milega!” 🧸🎀",
             "“Mid-sem ka syllabus aur tumhaari smile... Dono hi samajh ke baahar hain!” 🌀🌙",
             "“Nazar mili tumse toh dil chal pada... Placements chhodo, match hamara bada!” 🪄✨",
             "“Viva me HOD ne pucha 'What is love?'... Maine muskura kar aapka username bata diya.” 🤫🔥",
@@ -137,7 +178,6 @@
             "“Is your name WiFi? Because I am feeling a strong connection here.” 📶⚡"
         ];
 
-        // Randomly pick one single index and load it onto screen layout text elements
         const max = fairyShayaris.length;
         document.getElementById('quote-box').innerText = fairyShayaris[Math.floor(Math.random() * max)];
     </script>
