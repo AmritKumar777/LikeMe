@@ -4,15 +4,16 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 from werkzeug.utils import secure_filename
 import models as dbHandler
 
-# 1. Initialize Flask FIRST (Fixes NameError)
+# Initialize Flask first to avoid NameError
 app = Flask(__name__)
 
-# 2. Safely configure the upload directory universally
+# Configure the upload directory correctly
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'static')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','JPG'])
 
+# Fixed the list lower() typo by accessing the file extension index [1]
 def allowed_file(filename):
     return '.' in filename and \
     filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -23,17 +24,16 @@ def index():
 
 @app.route('/login')
 def login():
-    print("Login Loaded")
     return render_template('index.html')
 
-@app.route('/showMatch',methods = ['POST','GET'])
+@app.route('/showMatch', methods=['POST', 'GET'])
 def showMatches():
     if request.method == 'POST':
         username = request.form['liker'] 
         matches = dbHandler.retrieveMatches(username)
         return render_template("matches.html", match=matches)
 
-@app.route('/OneSided', methods=['POST','GET'])
+@app.route('/OneSided', methods=['POST', 'GET'])
 def makematch():
     if request.method == 'POST':
         liker = request.form['current-username']
@@ -60,7 +60,7 @@ def home():
         username = request.form['username']
         password = request.form['password']
         count = dbHandler.checkUser(username, password)
-        if count[0][0] >= 1:			
+        if count[0][0] >= 1:            
             users = dbHandler.findGender(username)
             gender = users[0][0]
             data = dbHandler.retrieveUserDetails(gender)
@@ -76,7 +76,7 @@ def home():
 def reg():
     return render_template('welcome.html')
 
-@app.route('/register', methods=['POST','GET'])
+@app.route('/register', methods=['POST', 'GET'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
@@ -88,11 +88,9 @@ def register():
         
         if 'image' not in request.files:
             return render_template('welcome.html')
-            
         file = request.files['image']
         if file.filename == '':
             return render_template('welcome.html') 
-            
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
