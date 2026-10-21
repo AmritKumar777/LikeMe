@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LikeMe ✨ Realm</title>
+    
+    <!-- FIXED: Connected the complete, verified Google Fonts API pipeline for Y2K Chunky Typographies -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Quicksand', sans-serif; 
+            background: #FAF5FF; /* Soft pastel cream lavender backdrop */
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+        }
+        
+        .header { 
+            font-family: 'Fredoka', cursive; 
+            color: #F472B6; /* Elegant pastel pink core tone */
+            font-size: 2rem; 
+            margin-bottom: 20px; 
+            display:flex; 
+            align-items:center; 
+            gap:10px; 
+        }
+        
+        /* The swipeable profile card box layout container frame */
+        .card-container { 
+            width: 330px; 
+            height: 480px; 
+            background: white; 
+            border-radius: 25px; 
+            border: 4px solid #E9D5FF; /* Thick retro lavender border wrap */
+            box-shadow: 0 10px 20px rgba(167, 139, 250, 0.08); 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        
+        /* Info component wrappers sitting beneath the avatar block elements */
+        .card-info { 
+            padding: 24px 20px; 
+            flex-grow: 1; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            background: #FFF;
+        }
+        
+        .name { 
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem; 
+            color: #4A3E56; 
+            margin: 0; 
+        }
+        
+        .bio { 
+            font-size: 0.95rem; 
+            color: #7C3AED; 
+            opacity: 0.85; 
+            margin: 8px 0 0 0; 
+            line-height: 1.4;
+        }
+        
+        /* Interactive button alignment wrapper matrix rows */
+        .actions { 
+            display: flex; 
+            justify-content: space-around; 
+            padding-top: 10px; 
+        }
+        
+        /* Chunky colorful bubble action controller buttons configuration */
+        .btn { 
+            width: 65px; 
+            height: 65px; 
+            border-radius: 50%; 
+            border: none; 
+            font-size: 1.8rem; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05); 
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        
+        /* Micro-interactions animation scaling engine handles */
+        .btn:hover { transform: scale(1.12); }
+        .btn:active { transform: scale(0.95); }
+        
+        .btn-pass { background: #FEE2E2; color: #EF4444; }
+        .btn-like { background: #FCE7F3; color: #EC4899; }
+        
+        .logout { 
+            margin-top: 25px; 
+            color: #A78BFA; 
+            text-decoration: none; 
+            font-size: 0.95rem; 
+            font-weight: bold;
+            border-bottom: 2px dashed rgba(167, 139, 250, 0.4);
+            padding-bottom: 2px;
+            transition: color 0.2s;
+        }
+        .logout:hover {
+            color: #7C3AED;
+            border-bottom-color: #7C3AED;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top display greeting track keeping track of user sessions state -->
+    <div class="header">LikeMe ✨ <span style="font-size:0.9rem; background:#E9D5FF; font-family:'Quicksand'; font-weight:700; padding:5px 12px; border-radius:20px; color:#7C3AED;">Hi, {{ current_user }}!</span></div>
+
+    <!-- Check if our backend filters found any active eligible records in SQLite pool stack -->
+    {% if profiles %}
+        <!-- Loop through the filtered database entries array cleanly -->
+        {% for profile in profiles %}
+        <div class="card-container" id="profile-card" style="display: {% if loop.first %}flex{% else %}none{% endif %};">
+            
+            <!-- GIANT ANIMATED EMOJI AVATAR BLOCK -->
+            <div style="font-size: 5.5rem; height: 55%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #FFF3F8, #E8D7FF); border-bottom: 3px dashed #E9D5FF; user-select: none;">
+                <!-- Fallback safety catcher pattern: filters for old URL values inside array field index 3 -->
+                {% if "http" in profile[3] %}
+                    🧚‍♀️
+                {% else %}
+                    {{ profile[3] }}
+                {% endif %}
+            </div>
+            
+            <!-- USER INTRINSIC DETAILS TEXT DESCRIPTIONS WRAPPER -->
+            <div class="card-info">
+                <div>
+                    <!-- profile[0] maps user Name string, profile[1] handles Age integers -->
+                    <h3 class="name">{{ profile[0] }}, {{ profile[1] }}</h3>
+                    <!-- profile[2] extracts Bio string message elements descriptions -->
+                    <p class="bio">{{ profile[2] }}</p>
+                </div>
+                
+                <!-- SWIPING INTERACTIVE ACTIONS BUTTON MATRIX BAR -->
+                <div class="actions">
+                    <button class="btn btn-pass" onclick="nextCard()">❌</button>
+                    <!-- profile[4] maps out unique username identifiers back down to asynchronous fetch targets -->
+                    <button class="btn btn-like" onclick="likeCard('{{ profile[4] }}')">💖</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <!-- EMPTY Radar State Default Fallback View Box Frame -->
+        <div class="card-container" style="justify-content:center; align-items:center; padding:30px; text-align:center; background:#FFF;">
+            <div style="font-size: 4rem; margin-bottom: 15px;">🌸</div>
+            <h3 style="font-family:'Fredoka', sans-serif; color:#4A3E56; margin:0 0 10px 0;">No more fairies around!</h3>
+            <p style="font-size:0.9rem; color:#A78BFA; margin:0; line-height:1.4;">Tell your college classmates to create a profile to pop up on your match radar tracker!</p>
+        </div>
+    {% endif %}
+
+    <a href="/logout" class="logout">Leave the Realm (Logout)</a>
+
+    <script>
+        // Native Window Interface handler: refreshes workspace cleanly to fetch update queue positions
+        function nextCard() {
+            window.location.reload(); 
+        }
+
+        // Asynchronous JavaScript Interceptor engine: pipes like datasets secretly down to app.py 
+        function likeCard(username) {
+            let formData = new FormData();
+            formData.append('liked_username', username);
+            
+            fetch('/like', { method: 'POST', body: formData })
+            .then(res => res.json())
+            .then(data => {
+                // Instantly flashes celebration notification modals if mutual database intersections occur
+                if(data.status === 'match') {
+                    alert(data.message);
+                }
+                nextCard();
+            });
+        }
+    </script>
+</body>
+</html>
