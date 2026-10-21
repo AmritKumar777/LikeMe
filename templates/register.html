@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LikeMe ✨ Join the Magic</title>
+    
+    <!-- Link Google fonts for that retro, bubble chunky look -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Quicksand', sans-serif; 
+            /* Same aesthetic holographic gradient background as login page */
+            background: linear-gradient(135deg, #FFD6E8, #E8D7FF, #D6EFFF); 
+            height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            margin:0; 
+        }
+        
+        /* The pastel card wrapper box */
+        .box { 
+            background: rgba(255, 255, 255, 0.8); 
+            backdrop-filter: blur(10px); 
+            padding: 30px; 
+            border-radius: 30px; 
+            border: 3px solid #FFF; 
+            width: 320px; 
+            text-align: center; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        
+        h2 { 
+            font-family: 'Fredoka One', cursive; 
+            color: #C084FC; /* Fairy purple color */
+            margin-bottom: 15px; 
+        }
+        
+        /* Inputs, dropdown selectors, and bio text boxes styled uniformly */
+        input, select, textarea { 
+            width: 100%; 
+            padding: 10px; 
+            margin: 8px 0; 
+            border: 2px solid #E9D5FF; 
+            border-radius: 12px; 
+            box-sizing: border-box; 
+            font-family: inherit;
+        }
+        
+        /* Chunky colorful submit button */
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            background: linear-gradient(to right, #C084FC, #F472B6); 
+            color: white; 
+            border: none; 
+            border-radius: 12px; 
+            font-family: 'Fredoka One', cursive; 
+            font-size: 1.1rem;
+            cursor: pointer; 
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Join LikeMe 🧚‍♀️</h2>
+        <!-- This form sends all data via POST to the /register path in your app.py backend -->
+        <form action="/register" method="POST">
+            <!-- Username used to log in -->
+            <input type="text" name="username" placeholder="Pick Unique Username" required autocomplete="off">
+            
+            <!-- Password used to verify entry -->
+            <input type="password" name="password" placeholder="Password" required>
+            
+            <!-- Real display name that other classmates see on their screen cards -->
+            <input type="text" name="name" placeholder="Your Display Name" required>
+            
+            <!-- Age restriction layout -->
+            <input type="number" name="age" placeholder="Your Age" required min="17" max="30">
+            
+            <!-- Dropdown selector: Filters cards based on opposite preferences -->
+            <select name="gender">
+                <option value="Male">Fairy Boy (Male)</option>
+                <option value="Female">Fairy Girl (Female)</option>
+            </select>
+            
+            <!-- Short description/vibe text -->
+            <textarea name="bio" placeholder="Tell us your vibe or college major..." rows="2" required></textarea>
+            
+            <button type="submit">CREATE MAGIC PWA ✨</button>
+        </form>
+    </div>
+</body>
+</html>
