@@ -5,7 +5,7 @@ So, here is the deal: I am in my 1st year of college (literally only 3 months in
 My friend asked me "how?" and I said, "Watch me pull this off in a single week." And guess what? We did it! 🚀
 
 ## 🔗 Try it out right here!
-👉 **[Insert your active Render link here!]**
+👉 **https://likeme-fiv8.onrender.com/**
 *(Pro tip: Open this on your phone's browser, tap "Add to Home Screen," and boom—it installs like a real mobile app without dealing with any app store garbage!)*
 
 ---
